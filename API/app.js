@@ -6,6 +6,9 @@ const mongoose = require('mongoose');
 
 const dataRoutes = require('./routes/data');
 
+const dotenv = require('dotenv');
+dotenv.config();
+
 const app = express();
 
 app.use(bodyParser.json()); // application/json
@@ -33,9 +36,15 @@ app.use((error, req, res, next) => {
   });
 });
 
+const PORT = process.env.PORT || 3000;
+console.log(PORT);
+const DATABASE_URL = process.env.DATABASE_URL;
+
 mongoose
-  .connect('mongodb://127.0.0.1:27017/musicomerde')
+  .connect(DATABASE_URL)
   .then(() => {
-    app.listen(3000);
+    app.listen(PORT, () => {
+      console.log('Node.js est à l\'écoute sur le port %s ', PORT);
+    });
   })
   .catch(err => console.log(err));

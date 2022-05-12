@@ -5,7 +5,6 @@ const Score = require('../models/score');
 exports.obtenirScores = (req, res, next) => {
   Score.find()
     .then(scores => {
-      console.log(scores.length);
       res.status(200).json({
         message: 'Scores fetched successfully.',
         scores: scores
@@ -22,7 +21,6 @@ exports.obtenirScores = (req, res, next) => {
 exports.creerScore = (req, res, next) => {
   Score.find()
     .then(scores => {
-      console.log(scores.length);
       const score = new Score({
         nom_utilisateur: `Utilisateur ${(scores.length + 1)}`,
         nb_papiers: req.body.nb_papiers,
